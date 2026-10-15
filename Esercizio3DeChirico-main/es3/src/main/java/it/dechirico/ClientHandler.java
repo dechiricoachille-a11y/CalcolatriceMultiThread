@@ -9,10 +9,9 @@ public class ClientHandler implements Runnable {
     //Riferimento privato alla socket del client connesso
     private final Socket clientSocket;
     private final Semaphore semaforo; 
-
-    // Costruttore per ricevere la socket dal Server
-    public ClientHandler(Socket clientSocket) {
+    public ClientHandler(Socket clientSocket, Semaphore semaforo) {
         this.clientSocket = clientSocket;
+        this.semaforo = semaforo;
     }
 
     @Override
