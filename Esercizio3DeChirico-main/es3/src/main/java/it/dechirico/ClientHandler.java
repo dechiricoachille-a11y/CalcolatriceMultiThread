@@ -3,10 +3,12 @@ package it.dechirico;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.concurrent.Semaphore;
 
 public class ClientHandler implements Runnable {
     //Riferimento privato alla socket del client connesso
     private final Socket clientSocket;
+    private final Semaphore semaforo; 
 
     // Costruttore per ricevere la socket dal Server
     public ClientHandler(Socket clientSocket) {
@@ -67,7 +69,8 @@ public class ClientHandler implements Runnable {
             }
         } catch (Exception e) {
             System.err.println("Errore nella gestione del client: " + e.getMessage());
-        } finally {
+        } finally { 
+            semaforo.release();
             try {
                 clientSocket.close();
             } catch (Exception e) {
